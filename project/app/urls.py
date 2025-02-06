@@ -12,6 +12,7 @@ urlpatterns = [
     path('userhome/', views.userhome, name='userhome'),
     path('adminhome/', views.adminhome, name='adminhome'),
     path('addexpense/', views.addexpense, name='addexpense'),
+    path('viewexpense/', views.viewexpense, name='viewexpense'),
     path('addgroup/', views.addgroup, name='addgroup'),
     path('viewgroup/', views.viewgroup, name='viewgroup'),
     path('addgroupmember/', views.addgroupmember, name='addgroupmember'),

@@ -129,7 +129,7 @@ def userlogout(request):
 def adminlogout(request):
     logout(request)
     messages.success(request, "Admin logged out successfully!")
-    return redirect('adminlogin')
+    return redirect('home')
 
 
 def home(request):
@@ -246,10 +246,76 @@ def viewgroupmember(request):
         "selected_group": selected_group
     })
 
+from decimal import Decimal
 
-
+@login_required
 def addexpense(request):
-    return render(request,'user/addexpense.html')
+    if request.method == 'POST':
+        # Get form data (group, title, amount, date)
+        group_id = request.POST.get('group')
+        title = request.POST.get('title')
+        amount = request.POST.get('amount')  # This will be a string
+        date = request.POST.get('date')
 
+        # Convert amount to Decimal
+        amount = Decimal(amount)
+
+        # Get the group and its members
+        group = ExpenseGroup.objects.get(id=group_id)
+        members = GroupMember.objects.filter(group=group)
+
+        # Ensure userregister instance is used for paid_by
+        user_register = userregister.objects.get(user=request.user)
+
+        # Create the expense
+        expense = Expense.objects.create(
+            title=title,
+            amount=amount,
+            date=date,
+            group=group,
+            paid_by=user_register  # Pass the userregister instance
+        )
+
+        # Calculate the share for each member
+        amount_per_member = amount / len(members)
+
+        # Split the expense among group members
+        for member in members:
+            ExpenseSplit.objects.create(
+                expense=expense,
+                member=member,
+                amount=amount_per_member
+            )
+
+        # Redirect to some page (e.g., expense list)
+        return redirect('viewexpense')  # Replace with the actual URL
+
+    # If GET request, just display the add expense form
+    groups = ExpenseGroup.objects.all()
+    return render(request, 'user/addexpense.html', {'groups': groups})
+
+
+@login_required
 def viewexpense(request):
-    return render(request,'user/viewexpense.html')
+    # Get all expenses for the user or for a specific group
+    expenses = Expense.objects.all()
+
+    expense_data = []
+    for expense in expenses:
+        # Get the group name
+        group_name = expense.group.name  # Assuming the group has a 'name' field
+        
+        # Get the members and their respective share
+        splits = ExpenseSplit.objects.filter(expense=expense)
+        member_share = {}
+        
+        for split in splits:
+            member_share[split.member.name] = split.amount
+        
+        expense_data.append({
+            'expense': expense,
+            'group_name': group_name,
+            'splits': member_share
+        })
+
+    return render(request, 'user/viewexpense.html', {'expense_data': expense_data})
