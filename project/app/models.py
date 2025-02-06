@@ -5,12 +5,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class userregister(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Linking to the built-in User model
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     location = models.CharField(max_length=100)
-    # Password will be handled by Django's User model
-    confirm_password = models.CharField(max_length=255)  # This should be handled separately for confirmation purposes
+    confirm_password = models.CharField(max_length=255)  
 
     def __str__(self):
         return self.user.username

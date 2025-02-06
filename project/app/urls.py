@@ -17,6 +17,10 @@ urlpatterns = [
     path('viewgroup/', views.viewgroup, name='viewgroup'),
     path('addgroupmember/', views.addgroupmember, name='addgroupmember'),
     path('viewgroupmember/', views.viewgroupmember, name='viewgroupmember'),
+    
+    path('viewexpenses/', views.viewexpenses, name='viewexpenses'),
+    path('viewusers/', views.viewusers, name='viewusers'),
+    
 
 
 ]
