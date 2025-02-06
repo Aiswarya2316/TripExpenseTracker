@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Expense Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to right, #007bff, #0056b3);
+            color: white;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .content-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Trip Expense Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="../addgroup">Add Group</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../viewgroup">View Groups</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../addgroupmember">Add Members</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../viewgroupmember">View Members</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../addexpense">Expenses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../viewexpence">View Expenses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../userlogout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-section">
+        <h1>Welcome to the Trip Expense Tracker</h1>
+        <p>Effortlessly manage and track your trip expenses with ease.</p>
+    </div>
+
+    <div class="content-container">
+        <h2 class="text-center">Create a New Group</h2>
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="group_name" class="form-label">Group Name</label>
+                <input type="text" class="form-control" name="group_name" id="group_name" required>
+            </div>
+            <button type="submit" class="btn btn-custom">Create Group</button>
+        </form>
+    </div>
+
+    <div class="content-container">
+        <h2 class="text-center">Your Groups</h2>
+        {% if user_groups %}
+        <ul class="list-group">
+            {% for group in user_groups %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ group.name }}
+                <span class="badge bg-primary">Created on: {{ group.created_at }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-center">You have not created any groups yet.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
