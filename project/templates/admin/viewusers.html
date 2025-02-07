@@ -19,13 +19,13 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../adminlogin">Trip Expense Tracker</a>
+            <a class="navbar-brand" href="../adminhome">Trip Expense Tracker</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../viewusers">Viewusers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../viewusers">View users</a></li>
                     <li class="nav-item"><a class="nav-link" href="../adminlogout">Logout</a></li>
                 </ul>
             </div>
@@ -34,37 +34,31 @@
 
     <div class="container table-container">
         <h2>User Expenses</h2>
-        <table class="table table-bordered">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Expense Title</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Paid By</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Location</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entry in user_expenses %}
-                    <tr>
-                        <td colspan="5"><strong>{{ entry.user.user.username }}</strong></td>
-                    </tr>
-                    {% for expense in entry.expenses %}
-                        <tr>
-                            <td></td>
-                            <td>{{ expense.title }}</td>
-                            <td>{{ expense.amount }}</td>
-                            <td>{{ expense.date }}</td>
-                            <td>{{ expense.paid_by.username }}</td>
-                        </tr>
-                    {% endfor %}
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>{{ user.location }}</td>
+                </tr>
                 {% empty %}
-                    <tr>
-                        <td colspan="5">No users or expenses found.</td>
-                    </tr>
+                <tr>
+                    <td colspan="4">No users found.</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

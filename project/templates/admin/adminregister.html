@@ -81,13 +81,7 @@
     <div class="registration-container">
         <h2>Admin Registration</h2>
 
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+       
 
         <form method="POST">
             {% csrf_token %}
@@ -111,10 +105,10 @@
         </form>
 
         <div class="text-center mt-3">
-            <a href="{% url 'adminlogin' %}">Already have an account? Login</a>
+            <a href="../adminlogin">Already have an account? Login</a>
         </div>
         <div class="text-center mt-2">
-            <a href="{% url 'home' %}">Back to Home</a>
+            <a href="../">Back to Home</a>
         </div>
     </div>
 
