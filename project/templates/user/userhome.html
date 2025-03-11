@@ -41,35 +41,44 @@
             color: #fff;
         }
 
-        /* Header Image */
-        .header-img {
+        /* Hero Section */
+        .hero-section {
+            position: relative;
             width: 100%;
-            max-height: 450px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Main Content */
-        .container {
+            height: 500px;
+            background: url('../static/360_F_65482539_C0ZozE5gUjCafz7Xq98WB4dW6LAhqKfs.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             text-align: center;
-            padding: 50px 15px;
         }
 
-        .container h1 {
-            font-size: 42px;
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
             font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 20px;
         }
 
-        .container p {
-            font-size: 18px;
-            color: #555;
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.6;
+        .hero-content p {
+            font-size: 20px;
+            margin-top: 10px;
+            max-width: 600px;
         }
 
         /* Footer */
@@ -83,27 +92,17 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 30px 15px;
+            .hero-content h1 {
+                font-size: 36px;
             }
-
-            .container h1 {
-                font-size: 32px;
-            }
-
-            .navbar-nav {
-                text-align: center;
-            }
-
-            .navbar-nav .nav-item {
-                padding: 5px 0;
+            .hero-content p {
+                font-size: 18px;
             }
         }
     </style>
 </head>
 
 <body>
-
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -126,11 +125,14 @@
         </div>
     </nav>
 
-    <!-- Main Section -->
-    <div class="container">
-        <h1>Welcome to the Trip Expense Tracker</h1>
-        <p>Effortlessly manage your trip expenses with ease. Track group spending, add members, and get a detailed breakdown of costs—all in one place.</p>
-        <img src="../static/360_F_65482539_C0ZozE5gUjCafz7Xq98WB4dW6LAhqKfs.jpg" class="header-img">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Welcome to the Trip Expense Tracker</h1>
+            <p>Effortlessly manage your trip expenses with ease. Track group spending, add members, and get a detailed breakdown of costs—all in one place.</p>
+            <a href="../addgroup" class="btn btn-primary mt-3">Add Group</a>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -140,5 +142,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

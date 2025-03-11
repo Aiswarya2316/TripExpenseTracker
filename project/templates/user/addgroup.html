@@ -7,46 +7,76 @@
     <title>Trip Expense Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
+            color: #333;
         }
 
+        /* Navbar Styling */
         .navbar {
-            margin-bottom: 20px;
+            background-color: #007bff;
+            padding: 15px 20px;
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            color: #fff !important;
         }
 
         .navbar-nav .nav-link {
             font-size: 16px;
             font-weight: 500;
+            color: #fff;
+            transition: 0.3s;
+            padding: 8px 15px;
+            border-radius: 5px;
         }
 
-        .header-section {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(to right, #007bff, #0056b3);
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: url('../static/OIP.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            border-radius: 10px;
-            margin: 20px;
+            text-align: center;
         }
 
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        /* Content Section */
         .content-container {
-            width: 90%;
             max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
+            margin: 40px auto;
             background: white;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .btn-custom {
@@ -61,11 +91,29 @@
         .btn-custom:hover {
             background-color: #0056b3;
         }
+
+        /* Footer */
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="../userhome">Trip Expense Tracker</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -85,16 +133,21 @@
         </div>
     </nav>
 
-    <div class="header-section">
-        <h1>Welcome to the Trip Expense Tracker</h1>
-        <p>Effortlessly manage and track your trip expenses with ease.</p>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Welcome to Trip Expense Tracker</h1>
+            <p>Track and manage your trip expenses with ease.</p>
+        </div>
     </div>
 
+    <!-- Create Group Section -->
     <div class="content-container">
         <h2 class="text-center">Create a New Group</h2>
         <form method="POST" class="mt-4">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="group_name" class="form-label">Group Name</label>
                 <input type="text" class="form-control" name="group_name" id="group_name" required>
             </div>
@@ -102,6 +155,7 @@
         </form>
     </div>
 
+    <!-- Groups List Section -->
     <div class="content-container">
         <h2 class="text-center">Your Groups</h2>
         {% if user_groups %}
@@ -116,6 +170,11 @@
         {% else %}
         <p class="text-center">You have not created any groups yet.</p>
         {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Trip Expense Tracker. All Rights Reserved.
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
