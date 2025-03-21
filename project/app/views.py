@@ -297,21 +297,30 @@ def addexpense(request):
 
 @login_required
 def viewexpense(request):
-    # Get all expenses for the user or for a specific group
-    expenses = Expense.objects.all()
+    # Get the logged-in user
+    user = request.user
+
+    try:
+        user_register = userregister.objects.get(user=user)
+    except userregister.DoesNotExist:
+        messages.error(request, "User not found in user register.")
+        return redirect('userlogin')
+
+    # Get groups created by the user
+    user_groups = ExpenseGroup.objects.filter(created_by=user)
+
+    # Get expenses added by the user in those groups
+    expenses = Expense.objects.filter(group__in=user_groups, paid_by=user_register)
 
     expense_data = []
     for expense in expenses:
         # Get the group name
-        group_name = expense.group.name  # Assuming the group has a 'name' field
-        
-        # Get the members and their respective share
+        group_name = expense.group.name  
+
+        # Get the members and their respective shares
         splits = ExpenseSplit.objects.filter(expense=expense)
-        member_share = {}
-        
-        for split in splits:
-            member_share[split.member.name] = split.amount
-        
+        member_share = {split.member.name: split.amount for split in splits}
+
         expense_data.append({
             'expense': expense,
             'group_name': group_name,
