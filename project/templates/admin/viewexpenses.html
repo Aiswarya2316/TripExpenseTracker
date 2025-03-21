@@ -25,8 +25,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../adminhome">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../adminlogout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -37,31 +37,25 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>User</th>
                     <th>Expense Title</th>
                     <th>Amount</th>
                     <th>Date</th>
+                    <th>Group</th>
                     <th>Paid By</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entry in user_expenses %}
-                    <tr>
-                        <td colspan="5"><strong>{{ entry.user.user.username }}</strong></td>
-                    </tr>
-                    {% for expense in entry.expenses %}
+                {% for expense in user_expenses %}
+                    
                         <tr>
-                            <td></td>
                             <td>{{ expense.title }}</td>
                             <td>{{ expense.amount }}</td>
                             <td>{{ expense.date }}</td>
-                            <td>{{ expense.paid_by.username }}</td>
+                            <td>{{ expense.group }}</td>
+                            <td>{{ expense.paid_by.email }}</td>
                         </tr>
-                    {% endfor %}
-                {% empty %}
-                    <tr>
-                        <td colspan="5">No users or expenses found.</td>
-                    </tr>
+                   
+                   
                 {% endfor %}
             </tbody>
         </table>

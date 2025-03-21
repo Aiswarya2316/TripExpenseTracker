@@ -330,16 +330,8 @@ def viewusers(request):
 
 
 
-@login_required
 def viewexpenses(request):
-    users = userregister.objects.all()
-    user_expenses = []
-    for user in users:
-        expenses = Expense.objects.filter(user=user.user)
-        user_expenses.append({
-            'user': user,
-            'expenses': expenses
-        })
+    user_expenses = Expense.objects.all()
     return render(request, 'admin/viewexpenses.html', {'user_expenses': user_expenses})
 
 
