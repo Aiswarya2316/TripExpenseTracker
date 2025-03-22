@@ -330,6 +330,33 @@ def viewexpense(request):
     return render(request, 'user/viewexpense.html', {'expense_data': expense_data})
 
 
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import MemberBudget, GroupMember, ExpenseGroup
+from .forms import MemberBudgetForm
+
+
+def add_member_budget(request):
+    if request.method == "POST":
+        form = MemberBudgetForm(request.POST)
+        if form.is_valid():
+            budget = form.save()  # Save the form and get the budget instance
+            return redirect('view_member_budget', group_id=budget.group.id)  # Pass group_id
+    else:
+        form = MemberBudgetForm()
+    return render(request, 'user/add_buget.html', {'form': form})
+
+# View to see all budgets for a group
+def view_member_budget(request, group_id):
+    group = get_object_or_404(ExpenseGroup, id=group_id)
+    budgets = MemberBudget.objects.filter(group=group)
+    return render(request, 'user/view_budget.html', {'group': group, 'budgets': budgets})
+
+
+
+
+
 from django.shortcuts import render
 from .models import userregister
 

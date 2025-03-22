@@ -127,6 +127,7 @@
                     <li class="nav-item"><a class="nav-link" href="../viewgroupmember">View Members</a></li>
                     <li class="nav-item"><a class="nav-link" href="../addexpense">Expenses</a></li>
                     <li class="nav-item"><a class="nav-link" href="../viewexpense">View Expenses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../add-budget">Add Budget</a></li>
                     <li class="nav-item"><a class="nav-link" href="../userlogout">Logout</a></li>
                 </ul>
             </div>
@@ -155,22 +156,7 @@
         </form>
     </div>
 
-    <!-- Groups List Section -->
-    <div class="content-container">
-        <h2 class="text-center">Your Groups</h2>
-        {% if user_groups %}
-        <ul class="list-group">
-            {% for group in user_groups %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ group.name }}
-                <span class="badge bg-primary">Created on: {{ group.created_at }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p class="text-center">You have not created any groups yet.</p>
-        {% endif %}
-    </div>
+  
 
     <!-- Footer -->
     <div class="footer">

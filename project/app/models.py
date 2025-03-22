@@ -63,3 +63,19 @@ class ExpenseSplit(models.Model):
     expense = models.ForeignKey(Expense, on_delete=models.CASCADE)
     member = models.ForeignKey(GroupMember, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+
+
+class MemberBudget(models.Model):
+    member = models.ForeignKey(GroupMember, on_delete=models.CASCADE, related_name='budgets')
+    group = models.ForeignKey(ExpenseGroup, on_delete=models.CASCADE, related_name='member_budgets')
+    total_spent = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    def __str__(self):
+        return f'{self.member.user.username} spent {self.total_spent} in {self.group.name}'
+    
+    def update_budget(self, amount):
+        """Update the budget by adding the new amount spent."""
+        self.total_spent += amount
+        self.save()

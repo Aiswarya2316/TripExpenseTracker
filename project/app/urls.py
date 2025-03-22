@@ -17,6 +17,8 @@ urlpatterns = [
     path('viewgroup/', views.viewgroup, name='viewgroup'),
     path('addgroupmember/', views.addgroupmember, name='addgroupmember'),
     path('viewgroupmember/', views.viewgroupmember, name='viewgroupmember'),
+    path('add-budget/', views.add_member_budget, name='add_member_budget'),
+    path('view-budget/<int:group_id>/', views.view_member_budget, name='view_member_budget'),
     
     path('viewexpenses/', views.viewexpenses, name='viewexpenses'),
     path('viewusers/', views.viewusers, name='viewusers'),
